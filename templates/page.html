@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+		<script src="http://cdnjs.cloudflare.com/ajax/libs/gsap/1.17.0/TweenMax.min.js"></script>
+		<!-- <div id="rasa-chat-widget" data-websocket-url="http://localhost:5055"></div>
+<script src="https://unpkg.com/@rasahq/rasa-chat" type="application/javascript"></script> -->
+		<script type="text/javascript">
+			function createDynamicURL() {
+			    return parseInt(Math.random()*1000000000000);
+			}
+		</script>
+		<link id="one" rel="stylesheet" type="text/css" href="">
+		<link id="two" rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+		<link id="three" rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+		<link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
+		<script type="text/javascript">
+			var url = "/static/style.css?q=" + createDynamicURL().toString();
+			$("#one").attr("href", url)
+		</script>
+	</head>
+	<body>
+
+		<!-- <script>!(function () {
+			let e = document.createElement("script"),
+			  t = document.head || document.getElementsByTagName("head")[0];
+			(e.src =
+			  "https://cdn.jsdelivr.net/npm/rasa-webchat@1.0.0/lib/index.js"),
+			  // Replace 1.x.x with the version that you want
+			  (e.async = !0),
+			  (e.onload = () => {
+				window.WebChat.default(
+				  {
+					customData: { language: "en" },
+					socketUrl: "http://localhost:5005",
+					socketPath: "/socket.io"
+					// add other props here
+				  },
+				  null
+				);
+			  }),
+			  t.insertBefore(e, t.firstChild);
+		  })();
+		  </script> -->
+		<div id="container">
+			<div id="chatbox">
+				<p class="botText"><span>Hi! I'm RASA, your personal ChatBot !!</span></p>
+				<p class="botText"><span>How can i help you today...</span></p>
+			</div>
+			<div class="reminders">
+				<div class="reminder_top">Your Reminders</div>
+				<div class="line"></div>
+			</div>
+			<div id="userInput">
+				<input id="textInput" type="text" name="msg" placeholder="Message">
+				<button id="buttonInput" type="submit"><i class="fa fa-send"></i></button>
+				<button id="clear">Clear Screen</button>
+			</div>
+
+			<script>
+				function getBotResponse() {
+					var rawText = $("#textInput").val();
+					var userHtml = '<p class="userText"><span>' + rawText + '</span></p>';
+					$("#textInput").val("");
+					$("#chatbox").append(userHtml);
+					$("#chatbox").animate({ scrollTop: $("#chatbox").prop("scrollHeight") }, 700);
+					$.get("/get", { msg: rawText });
+				}
+
+				function pollForBotResponse() {
+    $.ajax({
+        url: '/db',
+        method: 'GET',
+        success: function(response) {
+            response.response.forEach(function(element) {
+                if (element.messages.includes("Remember to call")) {
+                    var botHtml = '<p class="reminder_text"><span>' + element.messages + '</span></p>';
+                    $(".reminders").append(botHtml);
+                } else {
+                    var botHtml = '<p class="botText"><span>' + element.messages + '</span></p>';
+                    $("#chatbox").append(botHtml);
+                    
+                    // Check if the message contains buttons
+                    if (element.buttons && element.buttons.length > 0) {
+						console.log(element.buttons)
+                        var buttonsHtml = '<div class="bot-buttons">';
+                        element.buttons.forEach(function(button) {
+                            buttonsHtml += '<button class="bot-button" data-payload="' + button.payload + '">' + button.title + '</button>';
+                        });
+                        buttonsHtml += '</div>';
+                        $("#chatbox").append(buttonsHtml);
+                    }
+                }
+                $("#chatbox").animate({ scrollTop: $("#chatbox").prop("scrollHeight") }, 700);
+            });
+        },
+        error: function(error) {
+            console.log('Error fetching response from /db:', error);
+        },
+        complete: function() {
+            setTimeout(pollForBotResponse, 3000);
+        }
+    });
+}
+
+// Add event listener for button clicks
+$(document).on('click', '.bot-button', function() {
+    var title = $(this).text()
+    $("#textInput").val(title);
+    getBotResponse();
+});
+
+		document.getElementById("clear").addEventListener("click", redirect);
+		function redirect(){ window.location = "{{url_for('page')}}"; }
+
+				$.ajax({
+                    url: '/delete',
+                    success: function() {
+                        console.log("success")
+                    }
+				});
+				$("#textInput").keypress(function(e) {
+					if(e.which == 13) {
+						getBotResponse();
+						pollForBotResponse();
+					}
+				});
+				$("#buttonInput").click(function() {
+					getBotResponse();
+					pollForBotResponse();
+				})
+
+				$(document).ready(function() {
+        	pollForBotResponse();
+    });
+
+			</script>
+
+		</div>
+	</body>
+</html>	

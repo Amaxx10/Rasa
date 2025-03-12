@@ -1,0 +1,293 @@
+version: "3.1"
+nlu:
+- intent: greet
+  examples: |
+    - hey
+    - hello
+    - hi
+    - hello there
+    - good morning
+    - good evening
+    - moin
+    - hey there
+    - let's go
+    - hey dude
+    - goodmorning
+    - goodevening
+    - good afternoon
+- intent: goodbye
+  examples: |
+    - cu
+    - good by
+    - cee you later
+    - good night
+    - bye
+    - goodbye
+    - have a nice day
+    - see you around
+    - bye bye
+    - see you later
+    - sayonara
+- intent: affirm
+  examples: |
+    - yes
+    - y
+    - indeed
+    - sure
+    - of course
+    - that sounds good
+    - correct
+    - qwerty
+    - yea
+- intent: deny
+  examples: |
+    - no
+    - n
+    - never
+    - I don't think so
+    - don't like that
+    - not really
+    - nah
+- intent: mood_great
+  examples: |
+    - perfect
+    - great
+    - amazing
+    - good
+    - happy
+    - feeling like a king
+    - wonderful
+    - I am feeling very good
+    - I am great
+    - I am amazing
+    - I am going to save the world
+    - super stoked
+    - extremely good
+    - so so perfect
+    - so good
+    - so perfect
+    - I'm good
+    - I am happy
+    - i am great
+- intent: mood_unhappy
+  examples: |
+    - my day was horrible
+    - I am sad
+    - I don't feel very well
+    - I am disappointed
+    - super sad
+    - I'm so sad
+    - sad
+    - very sad
+    - unhappy
+    - not good
+    - not very good
+    - extremly sad
+    - so saad
+    - so sad
+- intent: bot_challenge
+  examples: |
+    - who are you?
+    - are you a bot?
+    - are you a human?
+    - am I talking to a bot?
+    - am I talking to a human?
+- intent: fallback
+  examples: |
+    - ''
+    - ' '
+    - what's 2 + 2
+    - I want to order food
+    - who's the CEO of Blackrock
+    - what's the Elections results
+    - goo goo ga ga
+    - random
+    - how's the weather today
+- intent: book_ticket
+  examples: |
+    - book a ticket
+    - book my ticket
+    - Book a ticket for me
+    - Please book a ticket asap
+    - Can you book a ticket asap
+    - Please book tickets for me
+    - Can you book tickets for me
+    - book a ticket for me
+    - can you book a (flight)[travel_mode] ticket to (Mumbai)[destination] on (06-24-2024){"entity":"date", "role": "departure_date"} at (12 PM)[departure_time]
+    - please book tickets for (three)[no_of_people] from (Mumbai)[source] to (New York)[destination]
+    - book (train)[travel_mode] tickets for [2](no_of_people) people
+    - book me a (round trip)[journey_type] ticket to (Delhi)[destination]
+    - book for me (4)[no_of_people] (cab)[travel_mode] tickets from (Prague)[source] to (Zurich)(destiantion)
+    - book me a (one way)[journey_type] trip for (seven)[no_of_people]
+    - book (return)[journey_type] tickets from (07-23-2024)[departure_date] to (08-19-2024)[arrival_date]
+    - book me a ticket
+- intent: inform_travel
+  examples: |
+    - I want to book a ticket for [three](no_of_people) people
+    - no of people travelling are [5](no_of_people)
+    - book tickets for [2](no_of_people) people
+    - I am travelling by [car](travel_mode)
+    - I want to take a [cab](travel_mode)
+    - I will take a [cab](travel_mode)
+    - I will be taking a [cab](travel_mode)
+    - I want to travel by [taxi](travel_mode)
+    - I would like to go via [bus](travel_mode)
+    - The trip is a [road](travel_mode) trip
+    - The mode of transport would be a [train](travel_mode)
+    - It is a [rail](travel_mode) travel
+    - It's a [railway](travel_mode) trip
+    - It's an [air](travel_mode) travel
+    - I would be going by a [plane](travel_mode)
+    - Can I take a [flight](travel_mode)
+    - It is an [aeroplane](travel_mode) travel
+    - The mode of transport will be an [airplane](travel_mode)
+    - It's a [round](journey_type) trip
+    - It is a [single](journey_type) trip
+    - It's a [one way](journey_type) journey
+    - It is a [one-way](journey_type) journey
+    - It will be a [round trip](journey_type) trip
+    - It's going to a [round-trip](journey_type) trip
+    - From [Mumbai]{"entity": "location", "role": "source"}
+    - The starting city will be [Tokyo]{"entity": "location", "role": "source"}
+    - The starting place will be [Pune]{"entity": "location", "role": "source"}
+    - It's [Nashik]{"entity": "location", "role": "source"}
+    - Its from [Bangalore]{"entity": "location", "role": "source"}
+    - It is from [Delhi]{"entity": "location", "role": "source"}
+    - Source is [Chennai]{"entity": "location", "role": "source"}
+    - From [Nashik]{"entity": "location", "role": "source"}
+    - I will be going from [Kolkata]{"entity": "location", "role": "source"}
+    - I will depart from [Seoul]{"entity": "location", "role": "source"}
+    - Source is [Rio]{"entity": "location", "role": "source"}
+    - I am travelling from [Amsterdam]{"entity": "location", "role": "source"}
+    - I am going from [Paris]{"entity": "location", "role": "source"}
+    - I am going from [Paris]{"entity": "location", "role": "source"} to [Rome]{"entity": "location", "role": "destination"}
+    - I am travelling from [mumbai]{"entity": "location", "role": "source"} to [tokyo]{"entity": "location", "role": "destination"}
+    - I am going from [nashik]{"entity": "location", "role": "source"} to [pune]{"entity": "location", "role": "destination"}
+    - I am travelling by [train](travel_mode) from [mumbai]{"entity": "location", "role": "source"} to [london]{"entity": "location", "role": "destination"}
+    - I want to travel from [nagpur]{"entity": "location", "role": "source"} to [nashik]{"entity": "location", "role": "destination"} by [air](travel_mode)
+    - I want to travel from [Prague]{"entity": "location", "role": "source"} to [Oslo]{"entity": "location", "role": "destination"} on [06-17-2024]{"entity": "date", "role": "departure_date"}
+    - I want to go from [nagpur]{"entity": "location", "role": "source"} to [nashik]{"entity": "location", "role": "destination"} via a [car](travel_mode)
+    - I am travelling from [mumbai]{"entity": "location", "role": "source"} to [nashik]{"entity": "location", "role": "destination"} by [road](travel_mode)
+    - I am doing a [one-way](journey_type) journey from [mumbai]{"entity": "location", "role": "source"} to [nashik]{"entity": "location", "role": "destination"} by [road](travel_mode)
+    - I am travelling from [pune]{"entity": "location", "role": "source"} to [nagpur]{"entity": "location", "role": "destination"} by [train](travel_mode). It is a [round](journey_type) trip.
+    - I'm travelling to [Qatar]{"entity": "location", "role": "destination"}
+    - I am travelling towards [New York]{"entity": "location", "role": "destination"}
+    - Towards [Mumbai]{"entity": "location", "role": "destination"}
+    - from [Prague]{"entity": "location", "role": "source"}
+    - to [Zurich]{"entity": "location", "role": "destination"}
+    - To [Tokyo]{"entity": "location", "role": "destination"}
+    - [Hyderabad]{"entity": "location", "role": "source"}
+    - [Nashik]{"entity": "location", "role": "destination"}
+    - [Delhi]{"entity": "location", "role": "source"}
+    - [New York]{"entity": "location", "role": "destination"}
+    - I would like to visit [Zurich]{"entity": "location", "role": "destination"}
+    - I will visit [Manchester]{"entity": "location", "role": "destination"}
+    - I want to visit [Okinawa]{"entity": "location", "role": "destination"}
+    - The destination city is [Pune]{"entity": "location", "role": "destination"}
+    - To [Nagpur]{"entity": "location", "role": "destination"}
+    - Destination is [Paris]{"entity": "location", "role": "destination"}
+    - I will arrive at [Seoul]{"entity": "location", "role": "destination"}
+    - Can I go to [Madrid]{"entity": "location", "role": "destination"}
+    - I am going to [Miami]{"entity": "location", "role": "destination"}
+    - Date is [25-05-2024]{"entity": "date", "role": "departure_date"}
+    - [26-05-2024]{"entity": "date", "role": "departure_date"}
+    - Its on [27-05-2024]{"entity": "date", "role": "departure_date"}
+    - I will be leaving on [03-05-2024]{"entity": "date", "role": "departure_date"}
+    - I shall be leave on [03-05-2024]{"entity": "date", "role": "departure_date"}
+    - On [24-05-2024]{"entity": "date", "role": "departure_date"}
+    - I am departing on [27-05-2024]{"entity": "date", "role": "departure_date"}
+    - I will be departing on [27-05-2024]{"entity": "date", "role": "departure_date"}
+    - Time is [8:30 AM]{"entity": "time", "role": "departure_time"}
+    - Its at [11 AM]{"entity": "time", "role": "departure_time"}
+    - [1:30 PM]{"entity": "time", "role": "departure_time"}
+    - I will go at [5:00 PM]{"entity": "time", "role": "departure_time"} on [07-23-2024]{"entity": "date", "role": "departure_date"}
+    - I am departing on [27-05-2024]{"entity": "date", "role": "departure_date"} at [8:30 AM]{"entity": "time", "role": "departure_time"}
+    - I am departing at [11 AM]{"entity": "time", "role": "departure_time"} on [25-05-2024]{"entity": "date", "role": "departure_date"}
+    - The trip will be from [5-5-2024]{"entity": "date", "role": "departure_date"} to [25-05-2024]{"entity": "date", "role": "arrival_date"}
+    - [11 AM]{"entity": "time", "role": "departure_time"} on [25-05-2024]{"entity": "date", "role": "departure_date"}
+    - I am departing at [5]{"entity": "time", "role": "departure_time"} on [25-05-2024]{"entity": "date", "role": "departure_date"} and arriving at [3]{"entity": "time", "role": "arrival_time"} on [26-06-2024]{"entity": "date", "role": "arrival_date"}
+    - I will depart on [06-25-2024]{"entity": "date", "role": "departure_date"} at [1:30 AM]{"entity": "time", "role": "departure_time"}
+    - [06-11-2024]{"entity": "date", "role": "arrival_date"}
+    - It is on [06-25-2024]{"entity": "date", "role": "arrival_date"}
+    - I will arrive on [06-26-2024]{"entity": "date", "role": "arrival_date"}
+    - I am coming back on [06-27-2024]{"entity": "date", "role": "arrival_date"}
+    - I want to reach by [06-28-2024]{"entity": "date", "role": "arrival_date"}
+    - I will be arriving on [06-29-2024]{"entity": "date", "role": "arrival_date"}
+    - The date is [06-30-2024]{"entity": "date", "role": "arrival_date"}
+    - It's [12 PM]{"entity": "time", "role": "arrival_time"}
+    - It will be [1 AM]{"entity": "time", "role": "arrival_time"}
+    - It's at around [12:30 PM]{"entity": "time", "role": "arrival_time"}
+    - At [4:20 AM]{"entity": "time", "role": "arrival_time"}
+    - [3:30 am]{"entity": "time", "role": "arrival_time"}
+    - I'll be back on [7-1-2024]{"entity": "date", "role": "arrival_date"} at [8:42]{"entity": "time", "role": "arrival_time"}
+    - I will reach on the [07-07-2024]{"entity": "date", "role": "arrival_date"} at around [11 am]{"entity": "time", "role": "arrival_time"}
+    - I am arriving on [07-03-2024]{"entity": "date", "role": "arrival_date"} at [2:30 pm]{"entity": "time", "role": "arrival_time"}
+    - I am arriving at [3 pm]{"entity": "time", "role": "arrival_time"} on [07-05-2024]{"entity": "date", "role": "arrival_date"}
+    - At [1:30]{"entity": "time", "role": "arrival_time"}
+    - I want to book a ticket for [2](no_of_people) people from [Mumbai]{"entity": "location", "role": "source"} to [Tokyo]{"entity": "location", "role": "destination"}.
+    - Book a ticket for [5](no_of_people) people from [Nashik]{"entity": "location", "role": "source"} to [Pune]{"entity": "location", "role": "destination"}.
+    - Please book a ticket asap for me from [Bangalore]{"entity": "location", "role": "source"} to [Delhi]{"entity": "location", "role": "destination"}.
+    - Can you book a ticket asap for [3](no_of_people) people from [Chennai]{"entity": "location", "role": "source"} to [Nashik]{"entity": "location", "role": "destination"}?
+    - I will be taking a [cab](travel_mode) from [Mumbai]{"entity": "location", "role": "source"} to [Nashik]{"entity": "location", "role": "destination"} on [06-25-2024]{"entity": "date", "role": "departure_date"}.
+    - I am traveling from [Nagpur]{"entity": "location", "role": "source"} to [Nashik]{"entity": "location", "role": "destination"} via a [car](travel_mode).
+    - I am traveling from [Prague]{"entity": "location", "role": "source"} to [Oslo]{"entity": "location", "role": "destination"} on [06-17-2024]{"entity": "date", "role": "departure_date"}.
+    - I want to travel from [Mumbai]{"entity": "location", "role": "source"} to [London]{"entity": "location", "role": "destination"} by [train](travel_mode) on [06-25-2024]{"entity": "date", "role": "departure_date"}.
+    - I'm doing a [one-way](journey_type) journey from [Mumbai]{"entity": "location", "role": "source"} to [Nashik]{"entity": "location", "role": "destination"} by [road](travel_mode).
+    - I am traveling from [Pune]{"entity": "location", "role": "source"} to [Nagpur]{"entity": "location", "role": "destination"} by [train](travel_mode). It is a [round](journey_type) trip.
+    - I will visit [Zurich]{"entity": "location", "role": "destination"} from [Manchester]{"entity": "location", "role": "source"}.
+    - I want to visit [Okinawa]{"entity": "location", "role": "destination"} from [Pune]{"entity": "location", "role": "source"}.
+    - The destination city is [Pune]{"entity": "location", "role": "destination"} from [Nagpur]{"entity": "location", "role": "source"}.
+    - I'm traveling to [Qatar]{"entity": "location", "role": "destination"}.
+    - Towards [Mumbai]{"entity": "location", "role": "destination"} from [Tokyo]{"entity": "location", "role": "source"}.
+    - I will arrive at [Seoul]{"entity": "location", "role": "destination"}.
+    - Can I go to [Madrid]{"entity": "location", "role": "destination"}?
+    - I am going to [Miami]{"entity": "location", "role": "destination"}.
+    - I am traveling from [Amsterdam]{"entity": "location", "role": "source"} to [Paris]{"entity": "location", "role": "destination"} on [06-25-2024]{"entity": "date", "role": "departure_date"}.
+    - I am departing on [06-25-2024]{"entity": "date", "role": "departure_date"} at [1:30 AM]{"entity": "time", "role": "departure_time"}.
+    - I am arriving on [06-26-2024]{"entity": "date", "role": "arrival_date"} at around [3 PM]{"entity": "time", "role": "arrival_time"}.
+    - It's a [one-way](journey_type) journey from [Nagpur]{"entity": "location", "role": "source"} to [Nashik]{"entity": "location", "role": "destination"} by [air](travel_mode).
+    - I am traveling from [Mumbai]{"entity": "location", "role": "source"} to [Nashik]{"entity": "location", "role": "destination"} by [road](travel_mode) on [06-25-2024]{"entity": "date", "role": "departure_date"}.
+    - I am departing on [06-25-2024]{"entity": "date", "role": "departure_date"} at [1:30 AM]{"entity": "time", "role": "departure_time"} and arriving on [06-26-2024]{"entity": "date", "role": "arrival_date"} at [3 PM]{"entity": "time", "role": "arrival_time"}.
+    - The trip will be from [06-25-2024]{"entity": "date", "role": "departure_date"} to [06-26-2024]{"entity": "date", "role": "arrival_date"}.
+    - I will arrive on [06-26-2024]{"entity": "date", "role": "arrival_date"} at around [3 PM]{"entity": "time", "role": "arrival_time"}.
+    - I am arriving on [06-26-2024]{"entity": "date", "role": "arrival_date"} at [3 PM]{"entity": "time", "role": "arrival_time"}.
+    - I am traveling from [Mumbai]{"entity": "location", "role": "source"} to [Nashik]{"entity": "location", "role": "destination"} by [road](travel_mode) on [06-25-2024]{"entity": "date", "role": "departure_date"} at [1:30 AM]{"entity": "time", "role": "departure_time"} and arriving on [06-26-2024]{"entity": "date", "role": "arrival_date"} at [3 PM]{"entity": "time", "role": "arrival_time"}.
+    - I want to travel from [Nagpur]{"entity": "location", "role": "source"} to [Nashik]{"entity": "location", "role": "destination"} by [air](travel_mode) on [06-25-2024]{"entity": "date", "role": "departure_date"} at [1:30 AM]{"entity": "time", "role": "departure_time"}.
+    - It is on [06-25-2024]{"entity": "date", "role": "arrival_date"}.
+    - I will arrive on [06-26-2024]{"entity": "date", "role": "arrival_date"}.
+    - I am arriving on [06-26-2024]{"entity": "date", "role": "arrival_date"}.
+    - I want to reach by [06-26-2024]{"entity": "date", "role": "arrival_date"}.
+    - I will be arriving on [06-26-2024]{"entity": "date", "role": "arrival_date"}.
+    - The date is [06-26-2024]{"entity": "date", "role": "arrival_date"}.
+    - It's at around [3 PM]{"entity": "time", "role": "arrival_time"}.
+    - I'll be back on [07-01-2024]{"entity": "date", "role": "arrival_date"} at [8:42 AM]{"entity": "time", "role": "arrival_time"}.
+    - I will reach on [07-07-2024]{"entity": "date", "role": "arrival_date"} at around [11 AM]{"entity": "time", "role": "arrival_time"}.
+    - I am arriving on [07-03-2024]{"entity": "date", "role": "arrival_date"} at [2:30 PM]{"entity": "time", "role": "arrival_time"}.
+    - I am arriving at [3 PM]{"entity": "time", "role": "arrival_time"} on [07-05-2024]{"entity": "date", "role": "arrival_date"}.
+    - [one way](journey_type)
+    - [flight](travel_mode)
+    - i am travelling from [Tokyo]{"entity": "location", "role": "source"}
+    - to [New York]{"entity": "location", "role": "destination"}
+- intent: ask_remind_call
+  examples: |    
+    - remind me to call John
+    - later I have to call Alan
+    - Please, remind me to call Vova
+    - please remind me to call Tanja
+    - I must not forget to call Juste
+    - remind me to call Rahul
+    - remind me to call Rohit
+- intent: EXTERNAL_reminder
+  examples: |
+    - EXTERNAL: EXTERNAL_reminder
+- intent: make_coffee
+  examples: |
+    - help me make coffee
+    - make some coffee for me
+    - make me coffee
+    - coffee
+    - prepare me some coffee
+    - coffee time
+    - can you make me some coffee
+    - please make me some coffee
+    - please prepare me coffee

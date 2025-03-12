@@ -1,0 +1,573 @@
+version: "3.1"
+stories:
+- story: happy path
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: mood_great
+  - action: utter_happy
+- story: sad path 1
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: mood_unhappy
+  - action: utter_cheer_up
+  - action: utter_did_that_help
+  - intent: affirm
+  - action: utter_happy
+- story: sad path 2
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: mood_unhappy
+  - action: utter_cheer_up
+  - action: utter_did_that_help
+  - intent: deny
+  - action: utter_goodbye
+
+# - story: Fallback - Invalid Input
+#   steps:
+#   - user: |
+#       greet
+#   - action: utter_greet
+#   - user: |
+#       book_ticket
+#   - action: travel_form_1
+#   - active_loop: travel_form_1
+#   - user: |
+#       inform_travel{"journey_type": "random", "travel_mode": "car", "source": "Boston", "destination": "Seattle", "departure_date": "2025-01-01", "departure_time": "9:00 AM"}
+#   - user: |
+#       fallback
+#   - action: utter_fallback_response
+#   - active_loop: travel_form_1
+
+
+- story: interactive_story_1 ////////////////////////////////////////////
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: mood_great
+  - action: utter_happy
+  - intent: book_ticket
+    entities:
+    - journey_type: one way
+    - travel_mode: flight
+  - slot_was_set:
+    - travel_mode: flight
+  - slot_was_set:
+    - journey_type: one way
+  - action: travel_form_1
+  - active_loop: travel_form_1
+  - slot_was_set:
+    - journey_type: one way
+  - slot_was_set:
+    - travel_mode: flight
+  - slot_was_set:
+    - requested_slot: source
+  - intent: inform_travel
+    entities:
+    - location: Mumbai
+      role: source
+    - location: Pune
+      role: destination
+  - slot_was_set:
+    - source: Mumbai
+  - slot_was_set:
+    - destination: Pune
+  - action: travel_form_1
+  - slot_was_set:
+    - source: Mumbai
+  - slot_was_set:
+    - destination: Pune
+  - slot_was_set:
+    - requested_slot: departure_date
+  - intent: inform_travel
+    entities:
+    - date: 27-05-2024
+      role: departure_date 
+    - time: 8:30 AM
+      role: departure_time
+  - slot_was_set:
+    - departure_date: 27-05-2024
+  - slot_was_set:
+    - departure_time: 8:30 AM
+  - action: travel_form_1
+  - slot_was_set:
+    - departure_date: 27-05-2024
+  - slot_was_set:
+    - departure_time: 8:30 AM
+  - slot_was_set:
+    - requested_slot: null
+  - active_loop: null
+  - action: utter_submit
+  - action: action_say_data
+
+- story: interactive_story_2 ////////////////////////////////////////////
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: mood_great
+  - action: utter_happy
+  - intent: book_ticket
+    entities:
+    - journey_type: round
+  - slot_was_set:
+    - journey_type: round
+  - action: travel_form_1
+  - active_loop: travel_form_1
+  - slot_was_set:
+    - journey_type: round
+  - slot_was_set:
+    - requested_slot: travel_mode
+  - intent: inform_travel
+    entities:
+    - travel_mode: flight
+    - location: New York
+      role: destination
+    - location: Delhi
+      role: source
+  - slot_was_set:
+    - travel_mode: flight
+  - slot_was_set:
+    - destination: New York
+  - slot_was_set:
+    - source: Delhi
+  - action: travel_form_1
+  - slot_was_set:
+    - travel_mode: flight
+  - slot_was_set:
+    - destination: New York
+  - slot_was_set:
+    - source: Delhi
+  - slot_was_set:
+    - requested_slot: departure_date
+  - intent: inform_travel
+    entities:
+    - date: 06-25-24
+      role: departure_date
+    - time: 12 AM
+      role: departure_time
+  - slot_was_set:
+    - departure_date: 06-25-24
+  - slot_was_set:
+    - departure_time: 12 AM
+  - action: travel_form_1
+  - slot_was_set:
+    - departure_date: '2024-06-25'
+  - slot_was_set:
+    - departure_time: 12:00:00
+  - slot_was_set:
+    - requested_slot: arrival_date
+  - intent: inform_travel
+    entities:
+    - date: 08-23-2024
+      role: arrival_date
+    - time: 9 PM
+      role: arrival_time
+  - slot_was_set:
+    - arrival_date: 08-23-2024
+  - slot_was_set:
+    - arrival_time: 9 PM
+  - action: travel_form_1
+  - slot_was_set:
+    - arrival_date: 08-23-2024
+  - slot_was_set:
+    - arrival_time: 09:00:00
+  - slot_was_set:
+    - requested_slot: null
+  - active_loop: null
+  - action: utter_submit
+  - action: action_say_data
+
+- story: interactive_story_3 ////////////////////////////////////////////
+  steps:
+  - intent: book_ticket
+    entities:
+    - journey_type: one way
+    - travel_mode: car
+    - location: Nagpur
+      role: source
+    - location: Prague
+      role: destination  
+    - date: 05-29-2024
+      role: departure_date
+    - time: 12 AM
+      role: departure_time
+  - slot_was_set:
+    - travel_mode: car
+  - slot_was_set:
+    - journey_type: one way
+  - slot_was_set:
+    - source: Prague
+  - slot_was_set:
+    - destination: Nagpur
+  - slot_was_set:
+    - departure_date: 05-29-2024
+  - slot_was_set:
+    - departure_time: 12 AM
+  - action: travel_form_1
+  - active_loop: travel_form_1
+  - slot_was_set:
+    - travel_mode: car
+  - slot_was_set:
+    - journey_type: one way
+  - slot_was_set:
+    - source: Prague
+  - slot_was_set:
+    - destination: Nagpur
+  - slot_was_set:
+    - departure_date: 05-29-2024
+  - slot_was_set:
+    - departure_time: 12 AM
+  - slot_was_set:
+    - requested_slot: null
+  - active_loop: null
+  - action: utter_submit
+  - action: action_say_data
+
+- story: interactive_story_4 ////////////////////////////////////////////
+  steps:
+  - intent: mood_great
+  - action: utter_happy
+  - intent: book_ticket
+    entities:
+    - journey_type: round
+    - travel_mode: taxi
+    - location: New York
+      role: source
+    - location: Zurich
+      role: destination
+    - date: 07-07-2024
+      role: departure_date
+    - time: 1:00 PM
+      role: departure_time
+    - date: 12-08-2024
+      role: arrival_date
+    - time: 6:00 AM
+      role: arrival_time
+  - slot_was_set:
+    - travel_mode: taxi
+  - slot_was_set:
+    - journey_type: round
+  - slot_was_set:
+    - source: New York
+  - slot_was_set:
+    - destination: Zurich
+  - slot_was_set:
+    - departure_date: 07-07-2024
+  - slot_was_set:
+    - departure_time: 1:00 PM
+  - slot_was_set:
+    - departure_date: 12-08-2024
+  - slot_was_set:
+    - departure_time: 6:00 AM
+  - action: travel_form_1
+  - active_loop: travel_form_1
+  - slot_was_set:
+    - travel_mode: taxi
+  - slot_was_set:
+    - journey_type: round
+  - slot_was_set:
+    - source: New York
+  - slot_was_set:
+    - destination: Zurich
+  - slot_was_set:
+    - departure_date: 07-07-2024
+  - slot_was_set:
+    - arrival_time: 1:00 PM
+  - slot_was_set:
+    - arrival_date: 12-08-2024
+  - slot_was_set:
+    - departure_time: 6:00 AM
+  - slot_was_set:
+    - requested_slot: null
+  - active_loop: null
+  - action: utter_submit
+  - action: action_say_data
+
+- story: interactive_story_5 ////////////////////////////////////////////
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: mood_great
+  - action: utter_happy
+  - intent: book_ticket
+    entities:
+    - journey_type: round
+  - slot_was_set:
+    - journey_type: round
+  - action: travel_form_1
+  - active_loop: travel_form_1
+  - slot_was_set:
+    - journey_type: round
+  - slot_was_set:
+    - requested_slot: travel_mode
+  - intent: inform_travel
+    entities:
+    - travel_mode: flight
+    - location: New York
+      role: source
+    - location: Delhi
+      role: destination
+  - slot_was_set:
+    - travel_mode: flight
+  - slot_was_set:
+    - source: New York
+  - slot_was_set:
+    - destination: Delhi
+  - action: travel_form_1
+  - slot_was_set:
+    - travel_mode: flight
+  - slot_was_set:
+    - source: New York
+  - slot_was_set:
+    - destination: Delhi
+  - slot_was_set:
+    - requested_slot: departure_date
+  - intent: inform_travel
+    entities:
+    - date: 06-25-24
+      role: departure_date
+    - time: 12 AM
+      role: departure_time
+  - slot_was_set:
+    - departure_date: 06-25-24
+  - slot_was_set:
+    - departure_time: 12 AM
+  - action: travel_form_1
+  - slot_was_set:
+    - departure_date: '2024-06-25'
+  - slot_was_set:
+    - departure_time: 12:00:00
+  - slot_was_set:
+    - requested_slot: arrival_date
+  - intent: inform_travel
+    entities:
+    - date: 08-23-2024
+      role: arrival_date
+    - time: 9 PM
+      role: arrival_time
+  - slot_was_set:
+    - arrival_date: 08-23-2024
+  - slot_was_set:
+    - arrival_time: 9 PM
+  - action: travel_form_1
+  - slot_was_set:
+    - arrival_date: 08-23-2024
+  - slot_was_set:
+    - arrival_time: 09:00:00
+  - slot_was_set:
+    - requested_slot: null
+  - active_loop: null
+  - action: utter_submit
+  - action: action_say_data
+
+- story: interactive_story_6 ////////////////////////////////////////////
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: mood_great
+  - action: utter_happy
+  - intent: book_ticket
+  - action: travel_form_1
+  - active_loop: travel_form_1
+  - slot_was_set:
+    - requested_slot: journey_type
+  - intent: inform_travel
+    entities:
+    - journey_type: one way
+  - slot_was_set:
+    - journey_type: one way
+  - action: travel_form_1
+  - slot_was_set:
+    - journey_type: one way
+  - slot_was_set:
+    - requested_slot: travel_mode
+  - intent: inform_travel
+    entities:
+    - travel_mode: flight
+  - slot_was_set:
+    - travel_mode: flight
+  - action: travel_form_1
+  - slot_was_set:
+    - travel_mode: flight
+  - slot_was_set:
+    - requested_slot: source
+  - intent: inform_travel
+    entities:
+    - location: Tokyo
+      role: destination
+  - slot_was_set:
+    - destination: Tokyo
+  - action: travel_form_1
+  - slot_was_set:
+    - destination: Tokyo
+  - slot_was_set:
+    - requested_slot: source
+  - intent: inform_travel
+    entities:
+    - location: Pune
+      role: source
+  - slot_was_set:
+    - source: Pune
+  - action: travel_form_1
+  - slot_was_set:
+    - source: Pune
+  - slot_was_set:
+    - requested_slot: departure_date
+  - intent: inform_travel
+    entities:
+    - date: 06-23-2024
+      role: departure_date
+  - slot_was_set:
+    - departure_date: 06-23-2024
+  - action: travel_form_1
+  - slot_was_set:
+    - departure_date: 06-23-2024
+  - slot_was_set:
+    - requested_slot: departure_time
+  - intent: inform_travel
+    entities:
+    - time: 12 AM
+      role: departure_time
+  - slot_was_set:
+    - departure_time: 12 AM
+  - action: travel_form_1
+  - slot_was_set:
+    - departure_time: 12:00:00
+  - slot_was_set:
+    - requested_slot: null
+  - active_loop: null
+  - action: utter_submit
+  - action: action_say_data
+
+- story: interactive_story_7 ////////////////////////////////////////////
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: mood_great
+  - action: utter_happy
+  - intent: book_ticket
+  - action: travel_form_1
+  - active_loop: travel_form_1
+  - slot_was_set:
+    - requested_slot: journey_type
+  - intent: inform_travel
+    entities:
+    - journey_type: round
+  - slot_was_set:
+    - journey_type: round
+  - action: travel_form_1
+  - slot_was_set:
+    - journey_type: round
+  - slot_was_set:
+    - requested_slot: travel_mode
+  - intent: inform_travel
+    entities:
+    - travel_mode: car
+  - slot_was_set:
+    - travel_mode: car
+  - action: travel_form_1
+  - slot_was_set:
+    - travel_mode: car
+  - slot_was_set:
+    - requested_slot: source
+  - intent: inform_travel
+    entities:
+    - location: Tokyo
+      role: source
+  - slot_was_set:
+    - source: Tokyo
+  - action: travel_form_1
+  - slot_was_set:
+    - source: Tokyo
+  - slot_was_set:
+    - requested_slot: destination
+  - intent: inform_travel
+    entities:
+    - location: Boston
+      role: destination
+  - slot_was_set:
+    - destination: Boston
+  - action: travel_form_1
+  - slot_was_set:
+    - destination: Boston
+  - slot_was_set:
+    - requested_slot: departure_date
+  - intent: inform_travel
+    entities:
+    - date: 07-12-2024
+      role: departure_date
+  - slot_was_set:
+    - departure_date: 07-12-2024
+  - action: travel_form_1
+  - slot_was_set:
+    - departure_date: 07-12-2024
+  - slot_was_set:
+    - requested_slot: departure_time
+  - intent: inform_travel
+    entities:
+    - time: 1:30 PM
+      role: departure_time
+  - slot_was_set:
+    - departure_time: 1:30 PM
+  - action: travel_form_1
+  - slot_was_set:
+    - departure_time: 13:30:00
+  - slot_was_set:
+    - requested_slot: arrival_date
+  - intent: inform_travel
+    entities:
+    - date: 08-11-2024
+      role: arrival_date
+  - slot_was_set:
+    - arrival_date: 08-11-2024
+  - action: travel_form_1
+  - slot_was_set:
+    - arrival_date: 08-11-2024
+  - slot_was_set:
+    - requested_slot: arrival_time
+  - intent: inform_travel
+    entities:
+    - time: 4 PM
+      role: arrival_time
+  - slot_was_set:
+    - arrival_time: 4 PM
+  - action: travel_form_1
+  - slot_was_set:
+    - arrival_time: 16:00:00
+  - slot_was_set:
+    - requested_slot: null
+  - active_loop: null
+  - action: utter_submit
+  - action: action_say_data
+
+- story: reminder story
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: mood_great
+  - action: utter_happy
+  - intent: ask_remind_call
+  - action: action_set_reminder
+  - action: action_react_to_reminder
+  - action: utter_reminder
+
+
+- story: interactive_story_9
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: ask_remind_call
+    entities:
+    - PERSON: Rohit
+  - slot_was_set:
+    - PERSON: Rohit
+  - action: action_set_reminder
+  - intent: EXTERNAL_reminder
+    entities:
+    - PERSON: Rohit
+  - slot_was_set:
+    - PERSON: Rohit
+  - action: action_react_to_reminder
+  - action: utter_reminder

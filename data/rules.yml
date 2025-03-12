@@ -1,0 +1,67 @@
+rules:
+- rule: Say goodbye anytime the user says goodbye
+  steps:
+  - intent: goodbye
+  - action: utter_goodbye
+- rule: Greet the user
+  steps:
+  - intent: greet
+  - action: utter_greet
+- rule: Say I AM A BOT anytime the user challenges
+  steps:
+  - intent: bot_challenge
+  - action: utter_iamabot
+- rule: Run Travel Form
+  steps:
+  - intent: book_ticket
+  - action: travel_form_1
+  - active_loop: travel_form_1
+- condition:
+  - active_loop: travel_form_1
+  rule: Submit travel_form_1
+  steps:
+  - action: travel_form_1
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - action: utter_submit
+  - action: action_say_data
+- condition:
+  - active_loop: travel_form_1
+  rule: Interruption in travel_form_1 (Bot Challenge)
+  steps:
+  - intent: bot_challenge
+  - action: utter_iamabot
+  - action: travel_form_1
+  - active_loop: travel_form_1
+- condition:
+  - active_loop: travel_form_1
+  rule: Interruption in travel_form_1 (Fallback)
+  steps:
+  - intent: fallback
+  - action: utter_fallback_response
+  - action: travel_form_1
+  - active_loop: travel_form_1
+- condition:
+  - active_loop: travel_form_1
+  rule: Interruption in travel_form_1 (Greet)
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - action: travel_form_1
+  - active_loop: travel_form_1
+- rule: Schedule a reminder
+  steps:
+  - entities:
+    - PERSON
+    intent: ask_remind_call
+  - action: action_set_reminder
+- rule: Trigger `action_react_to_reminder` for `EXTERNAL_reminder`
+  steps:
+  - intent: EXTERNAL_reminder
+  - action: action_react_to_reminder
+  - action: utter_reminder
+- rule: Preparing Coffee
+  steps:
+  - intent: make_coffee
+  - action: utter_make_coffee

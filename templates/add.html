@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+		<script type="text/javascript">
+			function createDynamicURL() {
+			    return parseInt(Math.random()*1000000000000);
+			}
+		</script>
+		<link id="one" rel="stylesheet" type="text/css" href="">
+		<link id="two" rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+		<link id="three" rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+		<link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
+		<script type="text/javascript">
+			var url = "/static/style.css?q=" + createDynamicURL().toString();
+			$("#one").attr("href", url)
+		</script>
+	</head>
+	<body>
+		<div id="container">
+                <textarea id="add_intent" type="text" name="intent" placeholder="Add NLU Training Intent here"></textarea>	
+				<textarea id="add_examples" type="text" name="examples" placeholder="Add Examples for the intent here"></textarea>
+				<textarea id="add_response" type="text" name="examples" placeholder="Add response for the intent here"></textarea>	
+		</div>
+		<div id="container">
+			<button id="submit">Submit</button>
+		</div>	
+
+        <script>
+            document.getElementById("submit").addEventListener("click", redirect);
+            function redirect(){
+                var intent = $("#add_intent").val();
+				var examples = $("#add_examples").val();
+				var response = $("#add_response").val();
+                $.get("/edit", { intent: intent, examples: examples, response: response}); 
+                window.location = "{{url_for('page')}}"; 
+            }
+        </script>
+	</body>
+</html>	

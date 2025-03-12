@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
+</head>
+<body>
+    <div class="chat_box">
+        <div class="chat">
+            <div class="messages">
+                {% for message in result %}
+                    <div class="message">{{ result }}</div>
+                {% endfor %}
+            </div>
+            <form action="{{url_for('use_rasa')}}" method="post" class="input_form">
+                <input type="text" name="data" class="input_text" placeholder="Enter your message...">
+                <button type="submit" class="send_button">Send</button>
+            </form>
+            <!-- <p>{{ response }}</p> -->
+        </div>
+    </div>
+</body>
+</html>

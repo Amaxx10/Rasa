@@ -1,0 +1,212 @@
+version: '3.1'
+intents:
+- make_coffee
+- make_coffee
+- EXTERNAL_reminder
+- affirm
+- ask_remind_call
+- book_ticket
+- bot_challenge
+- deny
+- fallback
+- goodbye
+- greet
+- inform_travel
+- mood_great
+- mood_unhappy
+entities:
+- location:
+    roles:
+    - source
+    - destination
+- date:
+    roles:
+    - departure_date
+    - arrival_date
+- journey_type
+- travel_mode
+- time:
+    roles:
+    - departure_time
+    - arrival_time
+- no_of_people
+- PERSON
+slots:
+  travel_mode:
+    type: text
+    influence_conversation: true
+    mappings:
+    - type: from_entity
+      entity: travel_mode
+  journey_type:
+    type: text
+    influence_conversation: true
+    mappings:
+    - type: from_entity
+      entity: journey_type
+  no_of_people:
+    type: text
+    influence_conversation: true
+    mappings:
+    - type: from_entity
+      entity: no_of_people
+  source:
+    type: text
+    influence_conversation: true
+    mappings:
+    - type: from_entity
+      entity: location
+      role: source
+  destination:
+    type: text
+    influence_conversation: true
+    mappings:
+    - type: from_entity
+      entity: location
+      role: destination
+  departure_date:
+    type: text
+    influence_conversation: true
+    mappings:
+    - type: from_entity
+      entity: date
+      role: departure_date
+  departure_time:
+    type: text
+    influence_conversation: true
+    mappings:
+    - type: from_entity
+      entity: time
+      role: departure_time
+  arrival_date:
+    type: text
+    influence_conversation: true
+    mappings:
+    - type: from_entity
+      entity: date
+      role: arrival_date
+  arrival_time:
+    type: text
+    influence_conversation: true
+    mappings:
+    - type: from_entity
+      entity: time
+      role: arrival_time
+  PERSON:
+    type: text
+    mappings:
+    - type: from_entity
+      entity: PERSON
+forms:
+  travel_form_1:
+    required_slots:
+    - journey_type
+    - travel_mode
+    - source
+    - destination
+    - departure_date
+    - departure_time
+    - arrival_date
+    - arrival_time
+actions:
+- action_set_reminder
+- action_react_to_reminder
+- utter_greet
+- utter_reminder
+- utter_happy
+- utter_submit
+- action_say_data
+- action_travel_form_1
+- utter_ask_journey_type
+- utter_goodbye
+- utter_did_that_help
+- utter_cheer_up
+- utter_iamabot
+- utter_fallback_response
+- utter_ask_travel_mode
+- utter_ask_source
+- utter_ask_no_of_people
+- utter_ask_destination
+- utter_ask_departure_date
+- utter_ask_departure_time
+- utter_ask_arrival_date
+- utter_ask_arrival_time
+- validate_travel_form_1
+- utter_make_coffee
+responses:
+  utter_make_coffee:
+  - text: Preparing Coffee for you !!!
+  utter_greet:
+  - text: Hey! How are you?
+  - text: Hi there! How's your day going?
+  - text: Hello! What can I do for you today?
+  utter_cheer_up:
+  - text: 'Here is something to cheer you up:'
+  - text: Look at this cheerful image!
+  - text: Hopefully, this brightens your day!
+  utter_did_that_help:
+  - text: Did that help you?
+  - text: Was that information useful?
+  - text: Let me know if you need more assistance.
+  utter_happy:
+  - text: Great, carry on!
+  - text: Awesome! Keep up the good work.
+  - text: Glad to hear it!
+  utter_goodbye:
+  - text: Bye
+  - text: Farewell!
+  - text: See you later!
+  utter_iamabot:
+  - text: I am a bot, powered by Rasa.
+  - text: I'm an AI assistant built with Rasa.
+  - text: You're chatting with a bot right now.
+  utter_ask_travel_mode:
+  - text: Which mode of transport would you prefer?
+  - text: Are you planning to travel by car, train, or plane?
+  - text: Would you like to go by bus or by boat?
+  utter_ask_journey_type:
+  - text: Please specify if it's a ONE-WAY or ROUND-TRIP Journey?
+  - text: Are you looking for a one-way or round-trip ticket?
+  utter_ask_source:
+  - text: From which place (CITY) would you be departing?
+  - text: What city are you departing from?
+  - text: Can you tell me the starting city for your journey?
+  utter_ask_no_of_people:
+  - text: Tickets for how many people (Maximum number is 10)?
+  - text: How many people will be traveling?
+  - text: Please specify the number of tickets needed (maximum 10).
+  utter_ask_destination:
+  - text: Which place (CITY) would you like to visit?
+  - text: What city would you like to go to?
+  - text: Where are you headed?
+  utter_ask_departure_date:
+  - text: When would you like to depart (DATE) (MM-DD-YYYY)?
+  - text: What date are you planning to leave?
+  - text: When do you want to start your journey?
+  utter_ask_departure_time:
+  - text: At what TIME would you like to depart?
+  - text: What time would you like to leave?
+  - text: When do you plan to depart?
+  utter_ask_arrival_date:
+  - text: When would you like to arrive (DATE) (MM-DD-YYYY)?
+  - text: What date do you plan to arrive?
+  - text: When are you looking to arrive?
+  utter_ask_arrival_time:
+  - text: At what TIME would you like to arrive?
+  - text: What time do you expect to arrive?
+  - text: When do you plan to reach your destination?
+  utter_submit:
+  - text: SUBMITTING THE FORM! .....
+  - text: Processing your request now.
+  - text: Your request is being processed.
+  utter_fallback_response:
+  - text: I'm not sure if I quite get that. Please make sure there are no typos.
+  - text: Sorry, I didn't understand. Can you please rephrase that?
+  - text: Could you please repeat that in a different way?
+  utter_reminder:
+  - text: Remember to call {PERSON}!
+  - text: Don't forget to contact {PERSON}!
+  - text: Keep in mind to give {PERSON} a call!
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: true
